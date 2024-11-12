@@ -1,0 +1,21 @@
+{
+    "name": "KaupunkiRP",
+    "short_name": "KPRP",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#ff8c00",
+    "icons": [
+      {
+        "src": "https://cdn.discordapp.com/attachments/876693441814351942/1224818480298197112/kaupunkirplogo-removebg-preview-removebg-preview.png?ex=673463d9&is=67331259&hm=7fb04b2e28fd0d1ae804c475dd54e6afe60089c8f4153973aaecbba8b14e02b1&",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "https://cdn.discordapp.com/attachments/876693441814351942/1224818480298197112/kaupunkirplogo-removebg-preview-removebg-preview.png?ex=673463d9&is=67331259&hm=7fb04b2e28fd0d1ae804c475dd54e6afe60089c8f4153973aaecbba8b14e02b1&",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  

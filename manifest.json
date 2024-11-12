@@ -1,6 +1,6 @@
 {
     "name": "KaupunkiRP",
-    "short_name": "KPRP",
+    "short_name": "KPRP - Pelaajat",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#000000",

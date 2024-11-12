@@ -24,25 +24,18 @@
       color: #f9f9f9;
     }
 
-    /* Logo vasempaan yläkulmaan */
-.logo {
-  position: fixed;
-  top: 20px;
-  left: 10px; /* Siirrä logoa vasemmalle */
-  width: 80px; /* Pienennä logon leveyttä tarvittaessa */
-  height: auto;
-  z-index: 1000;
-}
+    /* Poistettu logo-tyyli, koska logo ei ole käytössä */
 
-.server-info {
-  width: 80%; /* Pienennä laatikon leveyttä */
-  max-width: 350px; /* Tarvittaessa pienempi maksimileveys */
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
-  padding: 15px; /* Pienennä hieman laatikon sisäistä tilaa */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
-}
+    /* Serveritiedot-tyyli */
+    .server-info {
+      width: 80%;
+      max-width: 350px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+    }
 
     /* Yksittäinen serverilaatikko */
     .server {
@@ -171,9 +164,6 @@
   </style>
 </head>
 <body>
-  <!-- Logo vasempaan yläkulmaan -->
-  <img src="https://cdn.discordapp.com/attachments/876693441814351942/1224818480298197112/kaupunkirplogo-removebg-preview-removebg-preview.png?ex=673463d9&is=67331259&hm=7fb04b2e28fd0d1ae804c475dd54e6afe60089c8f4153973aaecbba8b14e02b1&" alt="Logo" class="logo">
-
   <div class="server-info">
     <div id="serverList">
       <div id="loading">Ladataan tietoja...</div>
@@ -208,8 +198,8 @@
 </html>
   <script>
     const servers = [
-      { name: 'KaupunkiRP Production', id: 'ybe9dm' },
-      { name: 'KaupunkiRP DEV', id: 'ybe9dm' },
+      { name: 'KaupunkiRP Production', id: '86zka5' },
+      { name: 'KaupunkiRP DEV', id: 'pr4ej8' },
     ];
 
     async function fetchPlayerCounts() {

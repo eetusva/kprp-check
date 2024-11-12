@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FiveM Serveritiedot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f3f4f6;
+    }
+    .server-info {
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .server {
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #e2e8f0;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="server-info">
+    <div id="serverList">Ladataan tietoja...</div>
+  </div>
+
+  <script>
+    const servers = [
+      { name: 'KaupunkiRP Production', id: 'YOUR_PRODUCTION_SERVER_ID' },
+      { name: 'KaupunkiRP Dev', id: 'YOUR_DEV_SERVER_ID' },
+      { name: 'KaupunkiRP Test', id: 'YOUR_TEST_SERVER_ID' }
+    ];
+
+    async function fetchPlayerCounts() {
+      const serverList = document.getElementById('serverList');
+      serverList.innerHTML = ''; // Tyhjennetään lista
+
+      await Promise.all(servers.map(async (server) => {
+        try {
+          const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${server.id}`);
+          const data = await response.json();
+          const playerCount = data.Data.players.length;
+
+          const serverDiv = document.createElement('div');
+          serverDiv.classList.add('server');
+          serverDiv.textContent = `${server.name}: ${playerCount} pelaajaa`;
+          serverList.appendChild(serverDiv);
+        } catch (error) {
+          console.error(`Virhe haettaessa tietoja serveriltä ${server.name}:`, error);
+          const serverDiv = document.createElement('div');
+          serverDiv.classList.add('server');
+          serverDiv.textContent = `${server.name}: Tietoja ei saatavilla`;
+          serverList.appendChild(serverDiv);
+        }
+      }));
+    }
+
+    // Hakee tiedot aina sivun latautuessa ja 5 minuutin välein
+    fetchPlayerCounts();
+    setInterval(fetchPlayerCounts, 300000); // 5 minuuttia
+  </script>
+</body>
+</html>

@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FiveM Serveritiedot</title>
+  
+  <!-- Linkki manifestiin -->
+  <link rel="manifest" href="manifest.json">
+  
   <style>
     /* Taustan tyyli */
     body {
@@ -22,13 +26,13 @@
 
     /* Logo vasempaan yläkulmaan */
     .logo {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 50px; /* Säädä koon tarpeen mukaan */
-      height: auto;
-      z-index: 1000; /* Pitää logon muiden elementtien päällä */
-    }
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 100px; /* Säädä kokoa tarpeen mukaan */
+  height: auto;
+  z-index: 1000; /* Pitää logon muiden elementtien päällä */
+}
 
     /* Kontti serverilistoille */
     .server-info {
@@ -67,18 +71,18 @@
       font-size: 20px;
       font-weight: bold;
       padding: 8px 12px;
-      background-color: rgba(255, 255, 255, 0.1); /* Taustan korostus */
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      margin-right: 10px; /* Välitila nimen ja pelaajamäärän välillä */
-      width: auto; /* Rajoittaa leveyden tekstin ympärille */
+      margin-right: 10px;
+      width: auto;
       text-align: center;
     }
 
     .player-count {
       font-size: 16px;
       padding: 8px 12px;
-      background-color: rgba(255, 255, 255, 0.1); /* Yhtenäinen tausta */
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       color: #ffdd99;
@@ -169,7 +173,7 @@
 </head>
 <body>
   <!-- Logo vasempaan yläkulmaan -->
-  <img src="https://path.to/your/logo.png" alt="Logo" class="logo">
+  <img src="https://cdn.discordapp.com/attachments/876693441814351942/1224818480298197112/kaupunkirplogo-removebg-preview-removebg-preview.png?ex=673463d9&is=67331259&hm=7fb04b2e28fd0d1ae804c475dd54e6afe60089c8f4153973aaecbba8b14e02b1&" alt="Logo" class="logo">
 
   <div class="server-info">
     <div id="serverList">
@@ -190,6 +194,19 @@
     </div>
   </div>
 
+  <!-- Rekisteröidään Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+</body>
+</html>
   <script>
     const servers = [
       { name: 'KaupunkiRP Production', id: 'ybe9dm' },

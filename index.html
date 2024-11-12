@@ -5,42 +5,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FiveM Serveritiedot</title>
   <style>
+    /* Taustan tyyli */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
-      background-color: #f3f4f6;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.discordapp.com/attachments/1202349885022810212/1298379804873326704/file-SlZ2GeXzhlG1umt5WclNnwsU.png?ex=673460ac&is=67330f2c&hm=283751dc9f37c42a4ba0f5beff08e15301b9447248c2b87f9063cc0fad62cf22&');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #f9f9f9;
     }
+
+    /* Logo vasempaan yläkulmaan */
+    .logo {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 50px; /* Säädä koon tarpeen mukaan */
+      height: auto;
+      z-index: 1000; /* Pitää logon muiden elementtien päällä */
+    }
+
+    /* Kontti serverilistoille */
     .server-info {
-      width: 300px;
+      width: 90%;
+      max-width: 400px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
       padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
     }
+
+    /* Yksittäinen serverilaatikko */
     .server {
-      margin: 15px 0;
-      padding: 10px;
-      background-color: #e2e8f0;
-      border-radius: 4px;
-      text-align: center;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 15px;
+      background-color: rgba(255, 140, 0, 0.9);
+      border-radius: 8px;
+      margin: 10px 0;
+      transition: transform 0.2s, box-shadow 0.2s;
       font-size: 18px;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }
+
+    .server:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Serverin nimen ja pelaajamäärän tyyli */
+    .server-name {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.1); /* Taustan korostus */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-right: 10px; /* Välitila nimen ja pelaajamäärän välillä */
+      width: auto; /* Rajoittaa leveyden tekstin ympärille */
+      text-align: center;
+    }
+
+    .player-count {
+      font-size: 16px;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.1); /* Yhtenäinen tausta */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      color: #ffdd99;
+      text-align: center;
+    }
+
+    /* Latausteksti */
+    #loading {
+      text-align: center;
+      color: #ffdd99;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    /* Modaalin tyyli */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background-color: #1e1e1e;
+      color: #f9f9f9;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: translateY(-30px);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+
+    .modal-header button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #ffdd99;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .modal-header button:hover {
+      color: #ffae42;
+    }
+
+    .modal-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .modal-body li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body>
+  <!-- Logo vasempaan yläkulmaan -->
+  <img src="https://path.to/your/logo.png" alt="Logo" class="logo">
+
   <div class="server-info">
-    <div id="serverList">Ladataan tietoja...</div>
+    <div id="serverList">
+      <div id="loading">Ladataan tietoja...</div>
+    </div>
+  </div>
+
+  <!-- Modaalin rakenne -->
+  <div id="playerModal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()"> <!-- Estää sulkemisen, kun klikataan sisällä -->
+      <div class="modal-header">
+        <span id="modalTitle">Serverin käyttäjät</span>
+        <button onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <ul id="playerList"></ul>
+      </div>
+    </div>
   </div>
 
   <script>
     const servers = [
-      { name: 'KaupunkiRP Production', id: 'https://servers.fivem.net/servers/detail/ybe9dm' },
-      { name: 'KaupunkiRP Dev', id: 'YOUR_DEV_SERVER_ID' },
-      { name: 'KaupunkiRP Test', id: 'YOUR_TEST_SERVER_ID' }
+      { name: 'KaupunkiRP Production', id: 'ybe9dm' },
+      { name: 'KaupunkiRP DEV', id: 'ybe9dm' },
     ];
 
     async function fetchPlayerCounts() {
@@ -55,16 +208,41 @@
 
           const serverDiv = document.createElement('div');
           serverDiv.classList.add('server');
-          serverDiv.textContent = `${server.name}: ${playerCount} pelaajaa`;
+          serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">${playerCount} pelaajaa</div>`;
+          serverDiv.onclick = () => showPlayerList(server.name, data.Data.players); // Modaalin avaus klikatessa
           serverList.appendChild(serverDiv);
         } catch (error) {
           console.error(`Virhe haettaessa tietoja serveriltä ${server.name}:`, error);
           const serverDiv = document.createElement('div');
           serverDiv.classList.add('server');
-          serverDiv.textContent = `${server.name}: Tietoja ei saatavilla`;
+          serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">Tietoja ei saatavilla</div>`;
           serverList.appendChild(serverDiv);
         }
       }));
+    }
+
+    function showPlayerList(serverName, players) {
+      const modal = document.getElementById('playerModal');
+      const playerList = document.getElementById('playerList');
+      const modalTitle = document.getElementById('modalTitle');
+
+      modalTitle.textContent = `${serverName} - Käyttäjät`;
+      playerList.innerHTML = '';
+
+      players.forEach(player => {
+        const listItem = document.createElement('li');
+        listItem.textContent = player.name;
+        playerList.appendChild(listItem);
+      });
+
+      modal.classList.add('show'); // Näytä modaalinen ikkuna
+    }
+
+    function closeModal(event) {
+      if (!event || event.target === document.getElementById('playerModal')) {
+        const modal = document.getElementById('playerModal');
+        modal.classList.remove('show');
+      }
     }
 
     // Hakee tiedot aina sivun latautuessa ja 5 minuutin välein

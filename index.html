@@ -25,25 +25,24 @@
     }
 
     /* Logo vasempaan yläkulmaan */
-    .logo {
+.logo {
   position: fixed;
   top: 20px;
-  left: 20px;
-  width: 100px; /* Säädä kokoa tarpeen mukaan */
+  left: 10px; /* Siirrä logoa vasemmalle */
+  width: 80px; /* Pienennä logon leveyttä tarvittaessa */
   height: auto;
-  z-index: 1000; /* Pitää logon muiden elementtien päällä */
+  z-index: 1000;
 }
 
-    /* Kontti serverilistoille */
-    .server-info {
-      width: 90%;
-      max-width: 400px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(8px);
-    }
+.server-info {
+  width: 80%; /* Pienennä laatikon leveyttä */
+  max-width: 350px; /* Tarvittaessa pienempi maksimileveys */
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 15px; /* Pienennä hieman laatikon sisäistä tilaa */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
 
     /* Yksittäinen serverilaatikko */
     .server {

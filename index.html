@@ -204,29 +204,29 @@
     ];
 
     async function fetchPlayerCounts() {
-      const serverList = document.getElementById('serverList');
-      serverList.innerHTML = ''; // Tyhjennetään lista
+  const serverList = document.getElementById('serverList');
+  serverList.innerHTML = ''; // Tyhjennetään lista
 
-      await Promise.all(servers.map(async (server) => {
-        try {
-          const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${server.id}`);
-          const data = await response.json();
-          const playerCount = data.Data.players.length;
+  // Käydään läpi palvelimet yksi kerrallaan, jotta niiden järjestys säilyy
+  for (const server of servers) {
+    const serverDiv = document.createElement('div');
+    serverDiv.classList.add('server');
+    serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">Ladataan...</div>`;
+    serverList.appendChild(serverDiv);
 
-          const serverDiv = document.createElement('div');
-          serverDiv.classList.add('server');
-          serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">${playerCount} pelaajaa</div>`;
-          serverDiv.onclick = () => showPlayerList(server.name, data.Data.players); // Modaalin avaus klikatessa
-          serverList.appendChild(serverDiv);
-        } catch (error) {
-          console.error(`Virhe haettaessa tietoja serveriltä ${server.name}:`, error);
-          const serverDiv = document.createElement('div');
-          serverDiv.classList.add('server');
-          serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">Tietoja ei saatavilla</div>`;
-          serverList.appendChild(serverDiv);
-        }
-      }));
+    try {
+      const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${server.id}`);
+      const data = await response.json();
+      const playerCount = data.Data.players.length;
+
+      serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">${playerCount} pelaajaa</div>`;
+      serverDiv.onclick = () => showPlayerList(server.name, data.Data.players);
+    } catch (error) {
+      console.error(`Virhe haettaessa tietoja serveriltä ${server.name}:`, error);
+      serverDiv.innerHTML = `<div class="server-name">${server.name}</div><div class="player-count">Tietoja ei saatavilla</div>`;
     }
+  }
+}
 
     function showPlayerList(serverName, players) {
       const modal = document.getElementById('playerModal');
